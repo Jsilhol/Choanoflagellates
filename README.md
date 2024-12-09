@@ -13,7 +13,7 @@ Les Choanoflagellés sont des protistes hétérotrophes ubiquistes appartenant a
 On distingue deux clades : les Craspedida et les Acanthoecida, les seconds se distinguant par la présence d'une lorica, structure extracellulaire en forme de panier permettant de freiner le recul induit par les mouvements du flagelle.
 Enfin, les Choanoflagellés constituent la lignée taxonomique la plus proche des métazoaires (autrement dit des animaux). Cette proximité phylogénétique est particulièrement intéressante d'un point de vue évolutif, par les perspectives qu'elle présente en termes de compréhension des processus à l'origine de la divergence des métazoaires. C'est notamment le cas pour les Craspedida (sans lorica), qui forment des colonies et pourraient donc présenter des gènes impliqués dans l'apparition de la multicellularité chez les métazoaires. Cependant, la diversité de ce groupe de Choanoflagellés reste encore peu connue.
 
-![]Choanoflagellate.png
+![]Images/Choanoflagellate.png
 
 Nous allons tout d'abord ici nous intéresser à la place des Choanoflagellés au sein des Eucaryotes, en évaluant leur contribution en termes de diversité et d'abondance, ainsi que leurs dynamiques temporelles. Nous essaierons également de mieux définir leur diversité, et notamment ici celles des Craspedida.
 Pour cela, nous sommes parties d'un jeu de données obtenu à partir des échantillons prélevés de façon bi-mensuelle à la station ASTAN (réseau SOMLIT), située au large de Roscoff, entre 2009 et 2016. L'ADN contenu dans ces échantillons a été extrait puis analysé par métabarcoding, résultant en une série temporelle comprenant plus de 8000 séquences ASV de la région V4 du gène ADNr 18S. Celui-ci code pour l'ARNr éponyme, faisant partie intégrante des ribosomes, éléments clés de la traduction des ARNm en protéines. Cette fonction au caractère "universel" induit une vitesse d'évolution relativement lente, ce qui permet de distinguer les espèces entre elles, à partir des divergences au sein de cette séquence.
@@ -21,9 +21,6 @@ L'idée est donc d'utiliser différentes approches bioinformatiques pour, à par
 
 
 ## Analyses (matériel & méthodes & résultats)
-- Expliquer ou trouver les ressources (input, scripts)
-- Expliquer la logique des codes et de l'analyse 
-- Réponse au objectifs cités en Intro
 
 ### Jeu de données et préparation avant analyses
 
@@ -35,7 +32,7 @@ Chaque fois, l'échantillonnage a été fait pour deux classes de taille distinc
 
 Au final, le jeu de données présente ainsi 6085 ASVs, détectés de façon plus ou moins régulière sur 183 échantillons.
 
-_Les scripts R (version 4.4.1) détaillés et expliqués sont rassemblés dans le notebook **Final.ipynb**. Les scripts Bash supplémentaires, pour le placement phylogénétique EPA-ng et l'assignation taxonomique via VSEARCH, sont quant à eux dans le notebook **taxoassign-bash.ipynb**._
+_Les scripts R (version 4.4.1) détaillés et expliqués sont rassemblés dans le notebook **main_notebook-R.ipynb**. Les scripts Bash supplémentaires, pour le placement phylogénétique EPA-ng et l'assignation taxonomique via VSEARCH, sont quant à eux dans le notebook **taxoassign-bash.ipynb**._
 
 ### Diversité et abondance
 
@@ -53,41 +50,41 @@ Quatre ASVs (parfois aussi appelés amplicons) sont identifiés par leur abondan
 
 Trois différentes méthodes d'assignation taxonomique vont être testées sur les ASVs assignés aux Craspedida. Le but est d'évaluer la capacité de ces différentes approches à mieux caractériser la diversité des Craspedida, en les inter-comparant entre elles.
 
-On crée des fichiers .fasta avec les séquences des ASVs de Choanoflagellés et de Craspedida, qu'on stocke dans le dossier "Output".
+On crée des fichiers .fasta avec les séquences des ASVs de Choanoflagellés et de Craspedida, stockés dans le dossier "Output".
 
-A) IDTAXA
-On reproduit ici l'assignation taxonomique à l'origine du jeu de données, mais cette fois avec la version la plus récente de la base de données PR2 (5.0.0)(dossier  pr2_version_5.0.0_SSU.decipher.trained.rds) disponible sur : https://github.com/pr2database/pr2database/releases/download/v5.0.0/pr2_version_5.0.0_SSU.decipher.trained.rds. 
-On utilise un seuil de confiance de 60%. Les résultats de l'assignation sont enregistrées dans le fichier idtaxa_v2.tsv. 
-Les résultats sont les mêmes que lors de la précédente assignation taxonomique avec la version 4.14 de la base PR2.
+#### A) IDTAXA
+On reproduit ici l'assignation taxonomique à l'origine du jeu de données, mais cette fois avec la version la plus récente de la base de données PR2 (5.0.0) téléchargeable via le lien suivant, à placer dans le dossier "Input" : https://github.com/pr2database/pr2database/releases/download/v5.0.0/pr2_version_5.0.0_SSU.decipher.trained.rds. 
+On conserve un seuil de confiance de 60%. Les résultats de l'assignation sont enregistrés dans le fichier "idtaxa_v2.tsv".
+Les résultats sont les mêmes que lors de la précédente assignation taxonomique avec la version 4.14 de la base PR2. Cela indique que les informations contenues dans cette base concernant la diversité des Choanoflagellés, et ici des Craspedida, n'ont pas évoluées depuis la dernière version.
 
-B) VSEARCH
-Cet algorithme se base sur une approche best-hit (similarité de la séquence de référence avec la séquence *query*). On utilise également la version 5.0.0 de la base PR2. On utilise la première partie du script bash nommé taxoassign-bash.ipynb dans le dossier scripts. 
-On exécute un nextflow disponible sur : https://gitlab.com/metabarcoding_utils/taxonomic-assignment rendu accessible par Nicolas Henry.
-Les résultats sont disponibles dans le fichier Output/nextflow. Ils sont similaires à ceux d'IDTAXA mais peuvent aller plus loin dans le rang taxonomique.
+#### B) VSEARCH
+Cet algorithme se base sur une approche de similarité entre les séquences de référence et les séquences *query*. On utilise également la version 5.0.0 de la base PR2. On utilise ici un script bash (cf. première partie du fichier "taxoassign-bash.ipynb"). 
+Le script d'origine, que nous avons ici (légèrement) adapté, ainsi que les fichiers input nécessaires, sont disponibles sur : https://gitlab.com/metabarcoding_utils rendu accessible par Nicolas Henry. Les modifications qui y ont été apportées sont également décrites dans le fichier "taxoassign-bash.ipynb".
+Les résultats sont disponibles dans le fichier Output/nextflow. Ils sont similaires à ceux d'IDTAXA mais peuvent aller plus loin dans le rang taxonomique. Cela s'explique par le fait que VSEARCH attribue directement la séquence de référence la plus similaire, sans prendre en compte le risque d'erreur, contrairement à IDTAXA qui n'assigne pas de taxa si le niveau de confiance passe sous le seuil fixé. L'assignation taxonomique faite par VSEARCH a des chances d'être la bonne, mais le niveau de confiance reste plus faible.
 
-C) Placement phylogénétique avec EPA-NG
-Les séquences utilisées pour calculer l'arbre phylogénétique de référence proviennent de l'article de Hake et al., 2024 et sont disponibles sur : https://figshare.com/articles/dataset/Data_from_Colonial_choanoflagellate_isolated_from_Mono_Lake_harbors_a_microbiome/14474214?file=27703662 (nous avons utilisé le fichier 18S_EFL_HSP90.concatenated.nex.con.tre figurant dans le fichier zip tree_figure_1C).
-On enracine l'arbre en ajoutant des séquences de métazoaires hors choanoflagellés, nécessaires pour le calcul d'un arbre pertinent. L'arbre de référence calculé est enregistré en format netwick.
-On passe ensuite sur la deuxième partie du script bash taxoassign-bash.ipynb pour aligner les ASVs choisies avec les séquences de l'arbre de référence avec mafft. 
-La visualisation de l'arbre peut se faire dans le script principal à partir des résultats obtenus. 
-On observe que divers ASVs sont placés sur plusieurs noeuds. La somme des probabilités d'être placé sur chaque noeud est égale à 1 pour chaque ASV. Le placement sur un noeud au niveau de l'espèce ne veut pas forcément dire que l'ASV correspond à cette espèce ; elle peut appartenir à une espèce voisine pas encore décrite ou non disponible sur cet arbre de référence. 
-**//ecrire fonction findterminal
+#### C) Placement phylogénétique avec EPA-NG
+Les séquences utilisées pour calculer l'arbre phylogénétique de référence proviennent de l'article de Hake et al., 2024 et sont disponibles sur : https://figshare.com/articles/dataset/Data_from_Colonial_choanoflagellate_isolated_from_Mono_Lake_harbors_a_microbiome/14474214?file=27703662 (nous avons utilisé le fichier "18S_EFL_HSP90.concatenated.nex.con.tre" figurant dans le fichier zip "tree_figure_1C").
+On enracine l'arbre en ajoutant en tant qu'*outgroup* des séquences de métazoaires, groupe "frère" des Choanoflagellés. Cette étape est nécessaire pour le calcul d'un arbre pertinent. L'arbre de référence calculé est enregistré en format newick.
+On utilise ici la deuxième partie du fichier "taxoassign-bash.ipynb" pour aligner les ASVs choisies avec les séquences de l'arbre de référence avec mafft. 
+La visualisation de l'arbre peut ensuite se faire dans le script principal à partir des résultats obtenus. 
+On observe que divers ASVs sont placés sur plusieurs noeuds. La somme des probabilités associées à chaque placement est égale à 1 pour chaque ASV. Le placement sur un noeud au niveau de l'espèce ne veut pas forcément dire que l'ASV correspond à cette espèce ; elle peut appartenir à une espèce voisine pas encore décrite ou non disponible sur cet arbre de référence (qui correspondrait à une branche parallèle non-représentée).
+
 
 ## Conclusion
-- texte
-- schema final
 
-Les choanoflagellés, et en particulier les Craspedida, représentent une faible contribution à la diversité  des ASVs analysés à la station Astan (respectivement 5% et 0.5% des ASVs). Certains ASVs sont plus abondants que d'autres, et leur quantité varie au cours de années. 
-La comparaison des méthodes d'assignements taxonomique montre une cohérence entre les résultats, malgré des précisions taxonomiques différentes : l'utilisation d'un arbre de référence donne des résultats plus prudents mais plus robustes. Au contraire, l'utilisation de VSEARCH donne le rang taxonomique le plus précis mais avec un taux de confiance plus faible. La comparaison de ces différentes méthodes permet d'obtenir des assignations taxonomiques avec un meilleur taux de confiance.
-Différents genres de Craspedida sont représentés parmi les ASVs les plus abondants.
+Les Choanoflagellés, et en particulier les Craspedida, représentent une faible proportion de la diversité  des ASVs analysés à la station Astan (respectivement 1.38% et 0.16% des ASVs).
+Certains ASVs sont plus abondants et/ou plus réguliers que d'autres sur la période d'échantillonnage (2009-2016).
+La comparaison des méthodes d'assignation taxonomique (cf. tableau suivant) montre une cohérence entre les résultats, malgré des précisions taxonomiques différentes : l'utilisation d'un arbre de référence donne des résultats plus prudents mais plus robustes. Au contraire, l'utilisation de VSEARCH donne le rang taxonomique le plus précis mais avec un taux de confiance plus faible. IDTAXA peut ici être considéré comme un "entre-deux".
+L'ensemble de ces résultats montre que les connaissances taxonomiques actuelles sont souvent insuffisantes pour permettre une assignation certaine à l'espèce. Cependant, la convergence de ces différentes méthodes sur les quelques assignations obtenues jusqu'à l'espèce assure un meilleur taux de confiance aux résutats en question. On commence ainsi, tout de même, à décrire certaines espèces de Craspedida. On note également que différents genres sont représentés parmi les ASVs les plus abondants.
 
-L'amélioration de la phylogénie de ce groupe est nécessaire pour mieux caractériser et distinguer les taxons et évaluer leur place dans les écosystèmes côtiers.
-Par ailleurs, il serait intéressant de mettre en relation les résultats obtenus avec les données environnementales mesurées à la station Astan, disponibles sur : https://www.seanoe.org/data/00854/96634/
+![]Images/tableau comparatif.PNG
+
+L'amélioration de la phylogénie de ce groupe est nécessaire pour mieux caractériser et distinguer les taxa entre eux, et évaluer leur place au sein des écosystèmes côtiers.
+Par ailleurs, il serait intéressant, pour tenter d'expliquer les variations temporelles observées, de mettre en relation les résultats obtenus avec les données environnementales mesurées à la station Astan, disponibles sur : https://www.seanoe.org/data/00854/96634/
 
 ## Aspect FAIR de l'analyse 
 
-Les données des ASVs détectés à la station Astan, la base de données de référence utilisée pour IDTAXA et VSEARCH, ainsi que la base de données utilisée pour le calcul de l'arbre de référence sont accessibles publiquement.
-Toutes les analyses sont détaillées dans les notebooks *final, taxoassign et vsearch.bash*. 
-Elles peuvent être adaptées à d'autres données d'ASVs et d'autres bases de données de référence.
-
-<mark>**PARLER du faite que l'on doit télécharger des fichiers à la main ...interoperabilité pas ouf ouf**</mark>
+- Facile à trouver : les données des ASVs détectés à la station Astan, la base de données de référence utilisée pour IDTAXA et VSEARCH, ainsi que la base de données utilisée pour le calcul de l'arbre de référence sont détaillées dans le README. Les jeux de données utilisés sont dotés de liens stables et pérennes dans le temps (**doi**).
+- Accessible : Les données sont toutes accessibles publiquement et gratuitement.
+- Interopérable : Les analyses peuvent être adaptées à d'autres données d'ASVs et d'autres bases de données de référence. Un autre arbre phylogénétique de référence peut être utilisé également. Cependant, tous les fichiers doivent être téléchargés à la main et certaines lignes de code doivent être adaptées aux spécificités du jeux de données.
+- Réutilisable : toutes les analyses sont détaillées dans les notebooks **main_notebook-R.ipynb** et **taxoassign-bash.ipynb**.
