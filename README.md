@@ -75,7 +75,7 @@ Certains ASVs sont plus abondants et/ou plus réguliers que d'autres sur la pér
 La comparaison des méthodes d'assignation taxonomique (cf. tableau suivant) montre une cohérence entre les résultats, malgré des précisions taxonomiques différentes : l'utilisation d'un arbre de référence donne des résultats plus prudents mais plus robustes. Au contraire, l'utilisation de VSEARCH donne le rang taxonomique le plus précis mais avec un taux de confiance plus faible. IDTAXA peut ici être considéré comme un "entre-deux".
 L'ensemble de ces résultats montre que les connaissances taxonomiques actuelles sont souvent insuffisantes pour permettre une assignation certaine à l'espèce. Cependant, la convergence de ces différentes méthodes sur les quelques assignations obtenues jusqu'à l'espèce assure un meilleur taux de confiance aux résutats en question. On commence ainsi, tout de même, à décrire certaines espèces de Craspedida. On note également que différents genres sont représentés parmi les ASVs les plus abondants.
 
-![alt text](https://github.com/Jsilhol/Choanoflagellates/main/Images/tableau comparatif.PNG?raw=true)
+![alt text](https://github.com/Jsilhol/Choanoflagellates/main/Images/tableau_comparatif.PNG?raw=true)
 
 L'amélioration de la phylogénie de ce groupe est nécessaire pour mieux caractériser et distinguer les taxa entre eux, et évaluer leur place au sein des écosystèmes côtiers.
 Par ailleurs, il serait intéressant, pour tenter d'expliquer les variations temporelles observées, de mettre en relation les résultats obtenus avec les données environnementales mesurées à la station Astan, disponibles sur : https://www.seanoe.org/data/00854/96634/
